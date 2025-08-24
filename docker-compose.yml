@@ -15,20 +15,33 @@ services:
       - psql_data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
-
-  pgadmin:
-    image: dpage/pgadmin4:latest
-    container_name: pgadmin
-    restart: always
-    environment:
-      PGADMIN_DEFAULT_EMAIL: uub@ubuntu.com
-      PGADMIN_DEFAULT_PASSWORD: boo
-    ports:
-      - "8080:80" # Host port 5050 maps to container port 80
+  
+  dbeaver:
+    image: dbeaver/cloudbeaver
+    ports: ["8080:8978"]
+    container_name: dbeaver-admin
+    restart: unless-stopped
+    volumes:
+      - dbeaver_data:/opt/cloudbeaver/workspace
+    tty: true
     depends_on:
       - postgres
-    volumes:
-      - pgadmin_data:/var/lib/pgadmin
+    links:
+      - postgres
+
+  # pgadmin:
+  #   image: dpage/pgadmin4:latest
+  #   container_name: pgadmin
+  #   restart: always
+  #   environment:
+  #     PGADMIN_DEFAULT_EMAIL: uub@ubuntu.com
+  #     PGADMIN_DEFAULT_PASSWORD: boo
+  #   ports:
+  #     - "8080:80" # Host port 5050 maps to container port 80
+  #   depends_on:
+  #     - postgres
+  #   volumes:
+  #     - pgadmin_data:/var/lib/pgadmin
 
   # ----------------------
   # Jupyter for Python/ETL
@@ -115,6 +128,7 @@ services:
 # ----------------------
 volumes:
   psql_data:
-  pgadmin_data:
+  # pgadmin_data:
+  dbeaver_data:
 #   minio_data:
 #   redpanda_data:
