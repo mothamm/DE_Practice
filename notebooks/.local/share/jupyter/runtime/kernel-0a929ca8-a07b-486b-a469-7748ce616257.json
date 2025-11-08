@@ -1,0 +1,13 @@
+{
+  "shell_port": 52657,
+  "iopub_port": 39907,
+  "stdin_port": 38043,
+  "control_port": 53505,
+  "hb_port": 44139,
+  "ip": "127.0.0.1",
+  "key": "fc15d5fd-4ca474ef7136eda88e6c4d13",
+  "transport": "tcp",
+  "signature_scheme": "hmac-sha256",
+  "kernel_name": "python3",
+  "jupyter_session": "/home/jovyan/py2mysql.ipynb"
+}
